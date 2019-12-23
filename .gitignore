@@ -1,0 +1,13 @@
+.vs
+PessoaFisica/bin/
+PessoaFisica/obj/
+PessoaFisica/packages/
+PessoaFisica.Test/bin/
+PessoaFisica.Test/obj/
+PessoaFisica.Test/packages/
+PessoaJuridica/bin/
+PessoaJuridica/obj/
+PessoaJuridica/packages/
+PessoaJuridica.Test/bin/
+PessoaJuridica.Test/obj/
+PessoaJuridica.Test/packages/
