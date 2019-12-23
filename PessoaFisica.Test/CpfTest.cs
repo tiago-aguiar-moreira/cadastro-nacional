@@ -32,7 +32,7 @@ namespace CadastroNacional.PessoaFisica.Test
             Assert.Empty(retorno);
         }
 
-        [Fact(DisplayName = "Gerar com sucesso CPF não formatado")]
+        [Fact(DisplayName = "Gerar CPF não formatado com sucesso")]
         public void GerarComSucessoCpfNaoFormatado()
         {
             const int cpfSemFormatacao = 11;
@@ -43,7 +43,7 @@ namespace CadastroNacional.PessoaFisica.Test
             Assert.True(cpf?.Length == cpfSemFormatacao);
         }
 
-        [Fact(DisplayName = "Gerar com sucesso CPF formatado")]
+        [Fact(DisplayName = "Gerar CPF formatado com sucesso")]
         public void GerarComSucessoCpfFormatado()
         {
             const int cpfComFormatacao = 14;

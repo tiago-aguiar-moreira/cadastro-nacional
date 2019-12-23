@@ -7,7 +7,7 @@ namespace CadastroNacional.PessoaJuridica
     {
         public static bool Formatar(string cnpjEntrada, out string cnpjSaida)
         {
-            if (string.IsNullOrEmpty(cnpjEntrada) || cnpjEntrada.Length != 11 || cnpjEntrada.Any(c => !char.IsDigit(c)))
+            if (string.IsNullOrEmpty(cnpjEntrada) || cnpjEntrada.Length != 15 || cnpjEntrada.Any(c => !char.IsDigit(c)))
             {
                 cnpjSaida = string.Empty;
                 return false;
@@ -21,10 +21,12 @@ namespace CadastroNacional.PessoaJuridica
 
         public static bool EhValido(string cnpj)
         {
-            if (string.IsNullOrEmpty(cnpj) || cnpj.Length != 14 || cnpj.Any(c => !char.IsDigit(c)))
-            {
-                return false;
-            }
+            //if (string.IsNullOrEmpty(cnpj) || cnpj.Length != 14 || cnpj.Any(c => !char.IsDigit(c)))
+            //{
+            //    return false;
+            //}
+
+            throw new NotImplementedException();
         }
 
         public static string Novo(bool formatar)
