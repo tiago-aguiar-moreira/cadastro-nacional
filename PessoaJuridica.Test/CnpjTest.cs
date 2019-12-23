@@ -1,6 +1,5 @@
 using Bogus;
 using Bogus.Extensions.Brazil;
-using System;
 using Xunit;
 
 namespace CadastroNacional.PessoaJuridica.Test
@@ -11,8 +10,6 @@ namespace CadastroNacional.PessoaJuridica.Test
         [InlineData("11444777000161")]
         public void FormatarCnpjComSucesso(string cnpj)
         {
-            //var cnpj = new Faker().Company.Cnpj(false);
-
             var cnpjFormatado = Cnpj.Formatar(cnpj, out var retorno);
 
             Assert.True(cnpjFormatado);
@@ -55,6 +52,27 @@ namespace CadastroNacional.PessoaJuridica.Test
             Assert.NotNull(cnpj);
             Assert.NotEmpty(cnpj);
             Assert.True(cnpj?.Length == cnpjComFormatacao);
+        }
+        
+        [Fact(DisplayName = "Validar CNPJ com sucesso")]
+        public void ValidarCnpjComSucesso()
+        {
+            var cnpj = new Faker().Company.Cnpj(false);
+
+            var validacaoCnpj = Cnpj.EhValido(cnpj);
+
+            Assert.True(validacaoCnpj);
+        }
+
+        [Theory(DisplayName = "Validar CNPJ com falha")]
+        [InlineData("11444777000162")]
+        [InlineData("11444777000163")]
+        [InlineData("11444777000164")]
+        public void ValidarCnpjComFalha(string cnpj)
+        {
+            var validacaoCnpj = Cnpj.EhValido(cnpj);
+
+            Assert.False(validacaoCnpj);
         }
     }
 }
