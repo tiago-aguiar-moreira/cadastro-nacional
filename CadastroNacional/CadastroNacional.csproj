@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Authors>Tiago Aguiar</Authors>
+    <PackageTags>CadastroNacional;CPF;CNPJ</PackageTags>
+    <NeutralLanguage />
+    <RepositoryUrl>https://github.com/tiago-aguiar-moreira/cadastro-nacional</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
