@@ -7,26 +7,28 @@ namespace CadastroNacional.PessoaJuridica
     {
         public static bool Formatar(string cnpjEntrada, out string cnpjSaida)
         {
-            if (string.IsNullOrEmpty(cnpjEntrada) || cnpjEntrada.Length != 15 || cnpjEntrada.Any(c => !char.IsDigit(c)))
+            if (string.IsNullOrEmpty(cnpjEntrada) || cnpjEntrada.Length != 14 || cnpjEntrada.Any(c => !char.IsDigit(c)))
             {
                 cnpjSaida = string.Empty;
                 return false;
             }
             else
             {
-                cnpjSaida = $"{cnpjEntrada[0]}{cnpjEntrada[1]}{cnpjEntrada[2]}.{cnpjEntrada[3]}{cnpjEntrada[4]}{cnpjEntrada[5]}.{cnpjEntrada[6]}{cnpjEntrada[7]}{cnpjEntrada[8]}-{cnpjEntrada[9]}{cnpjEntrada[10]}";
+                cnpjSaida = $"{cnpjEntrada[..2]}.{cnpjEntrada[2..5]}.{cnpjEntrada[5..8]}/{cnpjEntrada[8..12]}-{cnpjEntrada[^2..]}";
                 return true;
             }
         }
 
         public static bool EhValido(string cnpj)
         {
-            //if (string.IsNullOrEmpty(cnpj) || cnpj.Length != 14 || cnpj.Any(c => !char.IsDigit(c)))
-            //{
-            //    return false;
-            //}
+            if (string.IsNullOrEmpty(cnpj) || cnpj.Length != 14 || cnpj.Any(c => !char.IsDigit(c)))
+            {
+                return false;
+            }
 
-            throw new NotImplementedException();
+            var cpfValido = Novo(false, cnpj[..12]);
+
+            return cpfValido == cnpj;
         }
 
         public static string Novo(bool formatar)

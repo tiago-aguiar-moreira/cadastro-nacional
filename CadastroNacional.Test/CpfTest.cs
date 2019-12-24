@@ -1,8 +1,9 @@
 using Bogus;
 using Bogus.Extensions.Brazil;
+using CadastroNacional.PessoaFisica;
 using Xunit;
 
-namespace CadastroNacional.PessoaFisica.Test
+namespace CadastroNacional.Test
 {
     public class CpfTest
     {

@@ -1,8 +1,9 @@
 using Bogus;
 using Bogus.Extensions.Brazil;
+using CadastroNacional.PessoaJuridica;
 using Xunit;
 
-namespace CadastroNacional.PessoaJuridica.Test
+namespace CadastroNacional.Test
 {
     public class CnpjTest
     {
@@ -18,7 +19,7 @@ namespace CadastroNacional.PessoaJuridica.Test
 
         [Theory(DisplayName = "Formatar CNPJ com falha")]
         [InlineData("11.444.777/0001-62")]
-        [InlineData("99999999999999")]
+        [InlineData("999999999")]
         [InlineData("123")]
         [InlineData("ABC")]
         [InlineData("123ABC456")]
@@ -35,7 +36,7 @@ namespace CadastroNacional.PessoaJuridica.Test
         [Fact(DisplayName = "Gerar CNPJ não formatado com sucesso")]
         public void GerarCnpjNaoFormatadoComSucesso()
         {
-            const int tamanhoCnpjSemFormatacao = 15;
+            const int tamanhoCnpjSemFormatacao = 14;
             var cnpj = Cnpj.Novo(false);
 
             Assert.NotNull(cnpj);
@@ -46,12 +47,12 @@ namespace CadastroNacional.PessoaJuridica.Test
         [Fact(DisplayName = "Gerar CNPJ formatado com sucesso")]
         public void GerarComSucessoCnpjFormatado()
         {
-            const int cnpjComFormatacao = 14;
+            const int tamanhoCnpjSemFormatacao = 18;
             var cnpj = Cnpj.Novo(true);
 
             Assert.NotNull(cnpj);
             Assert.NotEmpty(cnpj);
-            Assert.True(cnpj?.Length == cnpjComFormatacao);
+            Assert.True(cnpj?.Length == tamanhoCnpjSemFormatacao);
         }
         
         [Fact(DisplayName = "Validar CNPJ com sucesso")]

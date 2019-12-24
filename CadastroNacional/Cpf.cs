@@ -14,7 +14,7 @@ namespace CadastroNacional.PessoaFisica
             }
             else
             {
-                cpfSaida = $"{cpfEntrada[0]}{cpfEntrada[1]}{cpfEntrada[2]}.{cpfEntrada[3]}{cpfEntrada[4]}{cpfEntrada[5]}.{cpfEntrada[6]}{cpfEntrada[7]}{cpfEntrada[8]}-{cpfEntrada[9]}{cpfEntrada[10]}";
+                cpfSaida = $"{cpfEntrada[..3]}.{cpfEntrada[3..6]}.{cpfEntrada[6..9]}-{cpfEntrada[^2..]}";
                 return true;
             }
         }
@@ -26,7 +26,7 @@ namespace CadastroNacional.PessoaFisica
                 return false;
             }
 
-            var cpfValido = Novo(false, cpf[0..^2]);
+            var cpfValido = Novo(false, cpf[..9]);
 
             return cpfValido == cpf;
         }
