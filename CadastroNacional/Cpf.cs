@@ -3,8 +3,17 @@ using System.Linq;
 
 namespace CadastroNacional.PessoaFisica
 {
+    /// <summary>
+    /// Classe para tratar CPF
+    /// </summary>
     public static class Cpf
     {
+        /// <summary>
+        /// Recebe um CPF sem formatação e o retorna formatado
+        /// </summary>
+        /// <param name="cpfEntrada">CPF sem pontuação com 11 dígitos</param>
+        /// <param name="cpfSaida">CPF formtado</param>
+        /// <returns>Indica se conseguiu formatar o CPF informado</returns>
         public static bool Formatar(string cpfEntrada, out string cpfSaida)
         {
             if (string.IsNullOrEmpty(cpfEntrada) || cpfEntrada.Length != 11 || cpfEntrada.Any(c => !char.IsDigit(c)))
@@ -19,6 +28,11 @@ namespace CadastroNacional.PessoaFisica
             }
         }
 
+        /// <summary>
+        /// Verifica se o CPF informado é válido
+        /// </summary>
+        /// <param name="cpf">CPF sem pontuação com 11 dígitos</param>
+        /// <returns>Indica se o CPF é válido</returns>
         public static bool EhValido(string cpf)
         {
             if (string.IsNullOrEmpty(cpf) || cpf.Length != 11 || cpf.Any(c => !char.IsDigit(c)))
@@ -31,6 +45,11 @@ namespace CadastroNacional.PessoaFisica
             return cpfValido == cpf;
         }
 
+        /// <summary>
+        /// Gerar um novo CPF a cada execução
+        /// </summary>
+        /// <param name="formatar">Se deve retornar formatado</param>
+        /// <returns>Retorna um novo CPF a cada execução</returns>
         public static string Novo(bool formatar)
         {
             var baseCpfAleatorio = new Random().Next(111111111, 999999999).ToString();

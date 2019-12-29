@@ -3,8 +3,17 @@ using System.Linq;
 
 namespace CadastroNacional.PessoaJuridica
 {
-    public class Cnpj
+    /// <summary>
+    /// Classe para tratar CNPJ
+    /// </summary>
+    public static class Cnpj
     {
+        /// <summary>
+        /// Recebe um CNPJ sem formatação e o retorna formatado
+        /// </summary>
+        /// <param name="cnpjEntrada">CNPJ sem pontuação com 14 dígitos</param>
+        /// <param name="cnpjSaida">CNPJ formtado</param>
+        /// <returns>Indica se conseguiu formatar o CNPJ informado</returns>
         public static bool Formatar(string cnpjEntrada, out string cnpjSaida)
         {
             if (string.IsNullOrEmpty(cnpjEntrada) || cnpjEntrada.Length != 14 || cnpjEntrada.Any(c => !char.IsDigit(c)))
@@ -19,6 +28,11 @@ namespace CadastroNacional.PessoaJuridica
             }
         }
 
+        /// <summary>
+        /// Verifica se o CNPJ informado é válido
+        /// </summary>
+        /// <param name="cnpj">CNPJ sem pontuação com 14 dígitos</param>
+        /// <returns>Indica se o CNPJ é válido</returns>
         public static bool EhValido(string cnpj)
         {
             if (string.IsNullOrEmpty(cnpj) || cnpj.Length != 14 || cnpj.Any(c => !char.IsDigit(c)))
@@ -31,6 +45,11 @@ namespace CadastroNacional.PessoaJuridica
             return cpfValido == cnpj;
         }
 
+        /// <summary>
+        /// Gerar um novo CNPJ a cada execução
+        /// </summary>
+        /// <param name="formatar">Se deve retornar formatado</param>
+        /// <returns>Retorna um novo CNPJ a cada execução</returns>
         public static string Novo(bool formatar)
         {
             var inscricao = new Random().Next(11111111, 99999999).ToString();
