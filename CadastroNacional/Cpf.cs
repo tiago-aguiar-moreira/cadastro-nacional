@@ -16,16 +16,13 @@ namespace CadastroNacional.PessoaFisica
         /// <returns>Indica se conseguiu formatar o CPF informado</returns>
         public static bool Formatar(string cpfEntrada, out string cpfSaida)
         {
-            if (string.IsNullOrEmpty(cpfEntrada) || cpfEntrada.Length != 11 || cpfEntrada.Any(c => !char.IsDigit(c)))
-            {
-                cpfSaida = string.Empty;
-                return false;
-            }
-            else
-            {
-                cpfSaida = $"{cpfEntrada[..3]}.{cpfEntrada[3..6]}.{cpfEntrada[6..9]}-{cpfEntrada[^2..]}";
-                return true;
-            }
+            var cpfValido = EhValido(cpfEntrada);
+            
+            cpfSaida = cpfValido
+                ? $"{cpfEntrada[..3]}.{cpfEntrada[3..6]}.{cpfEntrada[6..9]}-{cpfEntrada[^2..]}"
+                : string.Empty;
+            
+            return cpfValido;
         }
 
         /// <summary>
@@ -36,9 +33,7 @@ namespace CadastroNacional.PessoaFisica
         public static bool EhValido(string cpf)
         {
             if (string.IsNullOrEmpty(cpf) || cpf.Length != 11 || cpf.Any(c => !char.IsDigit(c)))
-            {
                 return false;
-            }
 
             var cpfValido = Novo(false, cpf[..9]);
 
@@ -71,10 +66,8 @@ namespace CadastroNacional.PessoaFisica
 
                 return cpfFormatado;
             }
-            else
-            {
-                return novoCpf;
-            }
+            
+            return novoCpf;
         }
 
         private static string GerarDV(string cpfSemDv)
@@ -87,11 +80,11 @@ namespace CadastroNacional.PessoaFisica
             var valorInicial = string.IsNullOrEmpty(primeiroDv) ? 10 : 11;
 
             if (!string.IsNullOrEmpty(primeiroDv))
-            {
                 cpfSemDv += primeiroDv;
-            }
 
-            var somaFatoresMultiplcados = cpfSemDv.Select((s, i) => Convert.ToInt32(char.GetNumericValue(s)) * (valorInicial - i)).Sum();
+            var somaFatoresMultiplcados = cpfSemDv
+                .Select((s, i) => Convert.ToInt32(char.GetNumericValue(s)) * (valorInicial - i))
+                .Sum();
 
             var restoDiv = somaFatoresMultiplcados % moduloOnze;
 

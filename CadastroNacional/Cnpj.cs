@@ -16,16 +16,13 @@ namespace CadastroNacional.PessoaJuridica
         /// <returns>Indica se conseguiu formatar o CNPJ informado</returns>
         public static bool Formatar(string cnpjEntrada, out string cnpjSaida)
         {
-            if (string.IsNullOrEmpty(cnpjEntrada) || cnpjEntrada.Length != 14 || cnpjEntrada.Any(c => !char.IsDigit(c)))
-            {
-                cnpjSaida = string.Empty;
-                return false;
-            }
-            else
-            {
-                cnpjSaida = $"{cnpjEntrada[..2]}.{cnpjEntrada[2..5]}.{cnpjEntrada[5..8]}/{cnpjEntrada[8..12]}-{cnpjEntrada[^2..]}";
-                return true;
-            }
+            var cnpjValido = EhValido(cnpjEntrada);
+
+            cnpjSaida = cnpjValido
+                ? $"{cnpjEntrada[..2]}.{cnpjEntrada[2..5]}.{cnpjEntrada[5..8]}/{cnpjEntrada[8..12]}-{cnpjEntrada[^2..]}"
+                : string.Empty;
+
+            return cnpjValido;
         }
 
         /// <summary>
@@ -36,13 +33,11 @@ namespace CadastroNacional.PessoaJuridica
         public static bool EhValido(string cnpj)
         {
             if (string.IsNullOrEmpty(cnpj) || cnpj.Length != 14 || cnpj.Any(c => !char.IsDigit(c)))
-            {
                 return false;
-            }
 
-            var cpfValido = Novo(false, cnpj[..12]);
+            var cnpjValido = Novo(false, cnpj[..12]);
 
-            return cpfValido == cnpj;
+            return cnpjValido == cnpj;
         }
 
         /// <summary>
@@ -52,9 +47,11 @@ namespace CadastroNacional.PessoaJuridica
         /// <returns>Retorna um novo CNPJ a cada execução</returns>
         public static string Novo(bool formatar)
         {
-            var inscricao = new Random().Next(11111111, 99999999).ToString();
+            var random = new Random();
 
-            var filial = new Random().Next(1, 9999).ToString().PadLeft(4, '0');
+            var inscricao = random.Next(11111111, 99999999).ToString();
+
+            var filial = random.Next(1, 9999).ToString().PadLeft(4, '0');
 
             return Novo(formatar, inscricao + filial);
         }
@@ -73,10 +70,8 @@ namespace CadastroNacional.PessoaJuridica
 
                 return cnpjFormatado;
             }
-            else
-            {
-                return novoCnpj;
-            }
+            
+            return novoCnpj;
         }
 
         private static string GerarDV(string cnpjDv)
@@ -87,9 +82,7 @@ namespace CadastroNacional.PessoaJuridica
             const int moduloOnze = 11;
 
             if (!string.IsNullOrEmpty(primeiroDv))
-            {
                 cnpjSemDigito += primeiroDv;
-            }
 
             var valoresParaMultipicar = string.IsNullOrEmpty(primeiroDv)
                 ? new int[] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 }
